@@ -459,7 +459,7 @@ static int is_git_command(const char *s)
 	if (is_builtin(s))
 		return 1;
 
-	load_command_list("git-", &main_cmds, &other_cmds);
+	load_command_list("jutsu-", &main_cmds, &other_cmds);
 	return is_in_cmdlist(&main_cmds, s) ||
 		is_in_cmdlist(&other_cmds, s);
 }
@@ -467,7 +467,9 @@ static int is_git_command(const char *s)
 static const char *cmd_to_page(const char *git_cmd)
 {
 	if (!git_cmd)
-		return "git";
+		return "jutsu";
+	else if (starts_with(git_cmd, "jutsu"))
+		return git_cmd;
 	else if (starts_with(git_cmd, "git"))
 		return git_cmd;
 	else if (is_git_command(git_cmd))
@@ -689,7 +691,7 @@ int cmd_help(int argc,
 			return 0;
 		}
 		printf(_("usage: %s%s"), _(git_usage_string), "\n\n");
-		load_command_list("git-", &main_cmds, &other_cmds);
+		load_command_list("jutsu-", &main_cmds, &other_cmds);
 		list_commands(&main_cmds, &other_cmds);
 		printf("%s\n", _(git_more_info_string));
 		break;

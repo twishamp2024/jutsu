@@ -1,6 +1,12 @@
 # git-mergetool--lib is a shell library for common merge tool functions
 
-: ${MERGE_TOOLS_DIR=$(git --exec-path)/mergetools}
+if ! command -v git >/dev/null 2>&1 && command -v jutsu >/dev/null 2>&1; then
+	git () {
+		jutsu "$@"
+	}
+fi
+
+: ${MERGE_TOOLS_DIR=$(if test -n "$GIT_EXEC_PATH" && test -d "$GIT_EXEC_PATH/mergetools"; then echo "$GIT_EXEC_PATH"; elif command -v jutsu >/dev/null 2>&1; then jutsu --exec-path; else git --exec-path; fi)/mergetools}
 
 IFS='
 '

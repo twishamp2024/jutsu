@@ -1879,7 +1879,7 @@ libgit_commonmain = declare_dependency(
 bin_wrappers = [ ]
 test_dependencies = [ ]
 
-git_builtin = executable('git',
+git_builtin = executable('jutsu',
   sources: builtin_sources + 'git.c',
   c_pch: 'tools/precompiled.h',
   dependencies: [libgit_commonmain],
@@ -1987,12 +1987,12 @@ foreach alias : [ 'git-receive-pack', 'git-upload-archive', 'git-upload-pack' ]
 
   install_symlink(alias + executable_suffix,
     install_dir: git_exec_path,
-    pointing_to: 'git',
+    pointing_to: 'jutsu',
   )
 endforeach
 
 foreach symlink : [
-  'git',
+  'jutsu',
   'git-receive-pack',
   'git-shell',
   'git-upload-archive',

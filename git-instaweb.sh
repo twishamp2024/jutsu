@@ -201,7 +201,7 @@ do
 done
 
 mkdir -p "$GIT_DIR/gitweb/tmp"
-GIT_EXEC_PATH="$(git --exec-path)"
+GIT_EXEC_PATH="$(if command -v jutsu >/dev/null 2>&1; then jutsu --exec-path; else git --exec-path; fi)"
 GIT_DIR="$fqgitdir"
 GITWEB_CONFIG="$fqgitdir/gitweb/gitweb_config.perl"
 export GIT_EXEC_PATH GIT_DIR GITWEB_CONFIG

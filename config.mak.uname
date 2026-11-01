@@ -172,6 +172,12 @@ ifeq ($(uname_S),Darwin)
 		USE_HOMEBREW_LIBICONV = UnfortunatelyYes
 		NEEDS_GOOD_LIBICONV = UnfortunatelyYes
         endif
+        ifeq ($(shell which cargo 2>/dev/null),)
+		NO_RUST = YesPlease
+        endif
+        ifeq ($(wildcard /usr/include/libintl.h /opt/homebrew/include/libintl.h),)
+		NO_GETTEXT = YesPlease
+        endif
 
 	# ld reports "PROJECT:{ld,ld64,dyld}-NNN", match any of the three.
 	LD_MAJOR_VERSION = $(shell ld -v 2>&1 | sed -n 's/.*PROJECT:[^ ]*-\([0-9][0-9]*\).*/\1/p')

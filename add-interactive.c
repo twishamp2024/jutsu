@@ -962,7 +962,7 @@ static int run_diff(struct add_i_state *s, const struct pathspec *ps,
 	if (count > 0) {
 		struct child_process cmd = CHILD_PROCESS_INIT;
 
-		strvec_pushl(&cmd.args, "git", "diff", "-p", "--cached", NULL);
+		strvec_pushl(&cmd.args, "jutsu", "diff", "-p", "--cached", NULL);
 		if (s->cfg.context != -1)
 			strvec_pushf(&cmd.args, "--unified=%i", s->cfg.context);
 		if (s->cfg.interhunkcontext != -1)

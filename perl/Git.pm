@@ -1691,7 +1691,7 @@ sub _setup_git_cmd_env {
 
 # Execute the given Git command ($_[0]) with arguments ($_[1..])
 # by searching for it at proper places.
-sub _execv_git_cmd { exec('git', @_); }
+sub _execv_git_cmd { exec('jutsu', @_); }
 
 sub _is_sig {
 	my ($v, $n) = @_;

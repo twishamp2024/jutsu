@@ -37,7 +37,7 @@ struct cmd_struct {
 };
 
 const char git_usage_string[] =
-	N_("git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n"
+	N_("jutsu [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n"
 	   "           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
 	   "           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n"
 	   "           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n"
@@ -45,10 +45,10 @@ const char git_usage_string[] =
 	   "           <command> [<args>]");
 
 const char git_more_info_string[] =
-	N_("'git help -a' and 'git help -g' list available subcommands and some\n"
-	   "concept guides. See 'git help <command>' or 'git help <concept>'\n"
+	N_("'jutsu help -a' and 'jutsu help -g' list available subcommands and some\n"
+	   "concept guides. See 'jutsu help <command>' or 'jutsu help <concept>'\n"
 	   "to read about a specific subcommand or concept.\n"
-	   "See 'git help git' for an overview of the system.");
+	   "See 'jutsu help jutsu' for an overview of the system.");
 
 static int use_pager = -1;
 
@@ -418,7 +418,7 @@ static int handle_alias(struct strvec *args, struct string_list *expanded_aliase
 		option_count = handle_options(&new_argv, &count, &envchanged);
 		if (envchanged)
 			die(_("alias '%s' changes environment variables.\n"
-			      "You can use '!git' in the alias to do this"),
+			      "You can use '!jutsu' in the alias to do this"),
 			    alias_command);
 		MOVE_ARRAY(new_argv - option_count, new_argv, count);
 		new_argv -= option_count;
@@ -725,11 +725,12 @@ void load_builtin_commands(const char *prefix, struct cmdnames *cmds)
 	/*
 	 * Callers can ask for a subset of the commands based on a certain
 	 * prefix, which is then dropped from the added names. The names in
-	 * the `commands[]` array do not have the `git-` prefix, though,
-	 * therefore we must expect the `prefix` to at least start with `git-`.
+	 * the `commands[]` array do not have the prefix, though,
+	 * therefore we expect the `prefix` to start with `jutsu-` or `git-`.
 	 */
-	if (!skip_prefix(prefix, "git-", &prefix))
-		BUG("prefix '%s' must start with 'git-'", prefix);
+	if (!skip_prefix(prefix, "jutsu-", &prefix) &&
+	    !skip_prefix(prefix, "git-", &prefix))
+		BUG("prefix '%s' must start with 'jutsu-' or 'git-'", prefix);
 
 	for (size_t i = 0; i < ARRAY_SIZE(commands); i++)
 		if (skip_prefix(commands[i].cmd, prefix, &name))
@@ -799,7 +800,7 @@ static void execv_dashed_external(const char **argv)
 		use_pager = check_pager_config(the_repository, argv[0]);
 	commit_pager_choice();
 
-	strvec_pushf(&cmd.args, "git-%s", argv[0]);
+	strvec_pushf(&cmd.args, "jutsu-%s", argv[0]);
 	strvec_pushv(&cmd.args, argv + 1);
 	cmd.clean_on_exit = 1;
 	cmd.wait_after_clean = 1;
@@ -822,11 +823,21 @@ static void execv_dashed_external(const char **argv)
 	 */
 	status = run_command(&cmd);
 
-	/*
-	 * If the child process ran and we are now going to exit, emit a
-	 * generic string as our trace2 command verb to indicate that we
-	 * launched a dashed command.
-	 */
+	if (status >= 0)
+		exit(status);
+	else if (errno != ENOENT)
+		exit(128);
+
+	/* Fall back to git-%s for existing external helpers/tools */
+	child_process_init(&cmd);
+	strvec_pushf(&cmd.args, "git-%s", argv[0]);
+	strvec_pushv(&cmd.args, argv + 1);
+	cmd.clean_on_exit = 1;
+	cmd.wait_after_clean = 1;
+	cmd.silent_exec_failure = 1;
+	cmd.trace2_child_class = "dashed";
+	status = run_command(&cmd);
+
 	if (status >= 0)
 		exit(status);
 	else if (errno != ENOENT)
@@ -838,6 +849,8 @@ static int is_deprecated_command(const char *cmd)
 	struct cmd_struct *builtin = get_builtin(cmd);
 	return builtin && (builtin->option & DEPRECATED);
 }
+
+static const char *main_argv0;
 
 static int run_argv(struct strvec *args)
 {
@@ -882,7 +895,10 @@ static int run_argv(struct strvec *args)
 
 			commit_pager_choice();
 
-			strvec_push(&cmd.args, "git");
+			if (main_argv0 && find_last_dir_sep(main_argv0))
+				strvec_push(&cmd.args, main_argv0);
+			else
+				strvec_push(&cmd.args, "jutsu");
 			strvec_pushv(&cmd.args, args->v);
 
 			trace_argv_printf(cmd.args.v, "trace: exec:");
@@ -925,9 +941,10 @@ int cmd_main(int argc, const char **argv)
 	const char *cmd;
 	int done_help = 0;
 
+	main_argv0 = argv[0];
 	cmd = argv[0];
 	if (!cmd)
-		cmd = "git-help";
+		cmd = "jutsu-help";
 	else {
 		const char *slash = find_last_dir_sep(cmd);
 		if (slash)
@@ -936,17 +953,23 @@ int cmd_main(int argc, const char **argv)
 
 	trace_command_performance(argv);
 
+	if (!strcmp(cmd, "git") || !strcmp(cmd, "git.exe"))
+		die(_("the 'git' executable name is no longer supported; use 'jutsu' instead"));
+
 	/*
-	 * "git-xxxx" is the same as "git xxxx", but we obviously:
+	 * "jutsu-xxxx" is the same as "jutsu xxxx", but we obviously:
 	 *
-	 *  - cannot take flags in between the "git" and the "xxxx".
+	 *  - cannot take flags in between the "jutsu" and the "xxxx".
 	 *  - cannot execute it externally (since it would just do
 	 *    the same thing over again)
 	 *
 	 * So we just directly call the builtin handler, and die if
 	 * that one cannot handle it.
 	 */
-	if (skip_prefix(cmd, "git-", &cmd)) {
+	if (skip_prefix(cmd, "jutsu-", &cmd) ||
+	    (!strcmp(cmd, "git-receive-pack") && skip_prefix(cmd, "git-", &cmd)) ||
+	    (!strcmp(cmd, "git-upload-pack") && skip_prefix(cmd, "git-", &cmd)) ||
+	    (!strcmp(cmd, "git-upload-archive") && skip_prefix(cmd, "git-", &cmd))) {
 		strvec_push(&args, cmd);
 		strvec_pushv(&args, argv + 1);
 		handle_builtin(&args);
@@ -992,7 +1015,7 @@ int cmd_main(int argc, const char **argv)
 			break;
 		if (was_alias) {
 			fprintf(stderr, _("expansion of alias '%s' failed; "
-					  "'%s' is not a git command\n"),
+					  "'%s' is not a jutsu command\n"),
 				cmd, args.v[0]);
 			strvec_clear(&args);
 			exit(1);

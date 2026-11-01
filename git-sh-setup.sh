@@ -43,8 +43,20 @@ git_broken_path_fix () {
 
 # @BROKEN_PATH_FIX@
 
+if ! command -v git >/dev/null 2>&1 && command -v jutsu >/dev/null 2>&1; then
+	git () {
+		jutsu "$@"
+	}
+fi
+
 # Source git-sh-i18n for gettext support.
-. "$(git --exec-path)/git-sh-i18n"
+if test -n "$GIT_EXEC_PATH" && test -f "$GIT_EXEC_PATH/git-sh-i18n"; then
+	. "$GIT_EXEC_PATH/git-sh-i18n"
+elif command -v jutsu >/dev/null 2>&1; then
+	. "$(jutsu --exec-path)/git-sh-i18n"
+else
+	. "$(git --exec-path)/git-sh-i18n"
+fi
 
 die () {
 	die_with_status 1 "$@"

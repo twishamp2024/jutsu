@@ -759,12 +759,12 @@ elseif(UNIX)
 	target_link_libraries(common-main pthread rt)
 endif()
 
-#git
+#jutsu
 parse_makefile_for_sources(git_SOURCES ${CMAKE_SOURCE_DIR}/Makefile "BUILTIN_OBJS")
 
 list(TRANSFORM git_SOURCES PREPEND "${CMAKE_SOURCE_DIR}/")
-add_executable(git ${CMAKE_SOURCE_DIR}/git.c ${git_SOURCES})
-target_link_libraries(git common-main)
+add_executable(jutsu ${CMAKE_SOURCE_DIR}/git.c ${git_SOURCES})
+target_link_libraries(jutsu common-main)
 
 add_executable(git-daemon ${CMAKE_SOURCE_DIR}/daemon.c)
 target_link_libraries(git-daemon common-main)
@@ -808,8 +808,8 @@ if(NOT SKIP_DASHED_BUILT_INS)
 foreach(s ${git_SOURCES} ${git_builtin_extra})
 	string(REPLACE "${CMAKE_SOURCE_DIR}/builtin/" "" s ${s})
 	string(REPLACE ".c" "" s ${s})
-	file(APPEND ${CMAKE_BINARY_DIR}/CreateLinks.cmake "file(CREATE_LINK git${EXE_EXTENSION} git-${s}${EXE_EXTENSION})\n")
-	list(APPEND git_links ${CMAKE_BINARY_DIR}/git-${s}${EXE_EXTENSION})
+	file(APPEND ${CMAKE_BINARY_DIR}/CreateLinks.cmake "file(CREATE_LINK jutsu${EXE_EXTENSION} jutsu-${s}${EXE_EXTENSION})\n")
+	list(APPEND git_links ${CMAKE_BINARY_DIR}/jutsu-${s}${EXE_EXTENSION})
 endforeach()
 endif()
 
@@ -824,7 +824,7 @@ endif()
 
 add_custom_command(OUTPUT ${git_links} ${git_http_links}
 		COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/CreateLinks.cmake
-		DEPENDS git git-remote-http)
+		DEPENDS jutsu git-remote-http)
 add_custom_target(git-links ALL DEPENDS ${git_links} ${git_http_links})
 
 

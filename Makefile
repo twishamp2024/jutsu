@@ -891,37 +891,44 @@ TEST_PROGRAMS = $(patsubst %,t/helper/%$X,$(TEST_PROGRAMS_NEED_X))
 
 # List built-in command $C whose implementation cmd_$C() is not in
 # builtin/$C.o but is linked in as part of some other command.
-BUILT_INS += $(patsubst builtin/%.o,git-%$X,$(BUILTIN_OBJS))
+BUILT_INS += $(patsubst builtin/%.o,jutsu-%$X,$(BUILTIN_OBJS))
 
-BUILT_INS += git-cherry$X
-BUILT_INS += git-cherry-pick$X
-BUILT_INS += git-format-patch$X
-BUILT_INS += git-format-rev$X
-BUILT_INS += git-fsck-objects$X
-BUILT_INS += git-init$X
-BUILT_INS += git-maintenance$X
-BUILT_INS += git-merge-subtree$X
-BUILT_INS += git-restore$X
-BUILT_INS += git-show$X
-BUILT_INS += git-stage$X
-BUILT_INS += git-status$X
-BUILT_INS += git-switch$X
-BUILT_INS += git-version$X
+BUILT_INS += jutsu-cherry$X
+BUILT_INS += jutsu-cherry-pick$X
+BUILT_INS += jutsu-format-patch$X
+BUILT_INS += jutsu-format-rev$X
+BUILT_INS += jutsu-fsck-objects$X
+BUILT_INS += jutsu-init$X
+BUILT_INS += jutsu-maintenance$X
+BUILT_INS += jutsu-merge-subtree$X
+BUILT_INS += jutsu-restore$X
+BUILT_INS += jutsu-show$X
+BUILT_INS += jutsu-stage$X
+BUILT_INS += jutsu-status$X
+BUILT_INS += jutsu-switch$X
+BUILT_INS += jutsu-version$X
 ifndef WITH_BREAKING_CHANGES
-BUILT_INS += git-whatchanged$X
+BUILT_INS += jutsu-whatchanged$X
 endif
+BUILT_INS += git-receive-pack$X
+BUILT_INS += git-upload-archive$X
+BUILT_INS += git-upload-pack$X
 
 # what 'all' will build but not install in gitexecdir
-OTHER_PROGRAMS += git$X
+OTHER_PROGRAMS += jutsu$X
 OTHER_PROGRAMS += scalar$X
 
 # what test wrappers are needed and 'install' will install, in bindir
-BINDIR_PROGRAMS_NEED_X += git
+BINDIR_PROGRAMS_NEED_X += jutsu
 BINDIR_PROGRAMS_NEED_X += scalar
 BINDIR_PROGRAMS_NEED_X += git-receive-pack
 BINDIR_PROGRAMS_NEED_X += git-shell
 BINDIR_PROGRAMS_NEED_X += git-upload-archive
 BINDIR_PROGRAMS_NEED_X += git-upload-pack
+BINDIR_PROGRAMS_NEED_X += jutsu-receive-pack
+BINDIR_PROGRAMS_NEED_X += jutsu-shell
+BINDIR_PROGRAMS_NEED_X += jutsu-upload-archive
+BINDIR_PROGRAMS_NEED_X += jutsu-upload-pack
 
 BINDIR_PROGRAMS_NO_X += git-cvsserver
 
@@ -2634,7 +2641,7 @@ please_set_SHELL_PATH_to_a_more_modern_shell:
 
 shell_compatibility_test: please_set_SHELL_PATH_to_a_more_modern_shell
 
-strip: $(PROGRAMS) git$X scalar$X
+strip: $(PROGRAMS) jutsu$X scalar$X
 	$(STRIP) $(STRIP_OPTS) $^
 
 ### Target-specific flags and dependencies
@@ -2676,9 +2683,12 @@ git.sp git.s git.o: EXTRA_CPPFLAGS = \
 	'-DGIT_MAN_PATH="$(mandir_relative_SQ)"' \
 	'-DGIT_INFO_PATH="$(infodir_relative_SQ)"'
 
-git$X: git.o GIT-LDFLAGS $(BUILTIN_OBJS) $(GITLIBS)
+jutsu$X: git.o GIT-LDFLAGS $(BUILTIN_OBJS) $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) \
 		$(filter %.o,$^) $(LIBS)
+
+git$X:
+	@echo "Error: the original 'git' executable is no longer supported by this distribution. Use 'jutsu' instead." >&2; exit 1
 
 help.sp help.s help.o: command-list.h
 builtin/bugreport.sp builtin/bugreport.s builtin/bugreport.o: hook-list.h
@@ -2701,7 +2711,7 @@ version-def.h: version-def.h.in GIT-VERSION-GEN GIT-VERSION-FILE GIT-USER-AGENT
 
 version.sp version.s version.o: version-def.h
 
-$(BUILT_INS): git$X
+$(BUILT_INS): jutsu$X
 	$(QUIET_BUILT_IN)$(RM) $@ && \
 	ln $< $@ 2>/dev/null || \
 	ln -s $< $@ 2>/dev/null || \
@@ -3732,7 +3742,7 @@ ifneq (,$X)
 endif
 ifndef NO_BASH_COMPLETION
 	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(bash_completion_dir_SQ)' && \
-	$(INSTALL) -m 644 contrib/completion/git-completion.bash '$(DESTDIR_SQ)$(bash_completion_dir_SQ)/git'
+	$(INSTALL) -m 644 contrib/completion/git-completion.bash '$(DESTDIR_SQ)$(bash_completion_dir_SQ)/jutsu'
 endif
 
 	bindir=$$(cd '$(DESTDIR_SQ)$(bindir_SQ)' && pwd) && \
@@ -3751,22 +3761,22 @@ endif
 	for p in $(filter $(install_bindir_programs),$(BUILT_INS)); do \
 		$(RM) "$$bindir/$$p" && \
 		test -n "$(INSTALL_SYMLINKS)" && \
-		ln -s "git$X" "$$bindir/$$p" || \
+		ln -s "jutsu$X" "$$bindir/$$p" || \
 		{ test -z "$(NO_INSTALL_HARDLINKS)" && \
-		  ln "$$bindir/git$X" "$$bindir/$$p" 2>/dev/null || \
-		  ln -s "git$X" "$$bindir/$$p" 2>/dev/null || \
-		  cp "$$bindir/git$X" "$$bindir/$$p" || exit; }; \
+		  ln "$$bindir/jutsu$X" "$$bindir/$$p" 2>/dev/null || \
+		  ln -s "jutsu$X" "$$bindir/$$p" 2>/dev/null || \
+		  cp "$$bindir/jutsu$X" "$$bindir/$$p" || exit; }; \
 	done && \
 	for p in $(BUILT_INS); do \
 		$(RM) "$$execdir/$$p" && \
 		if test -z "$(SKIP_DASHED_BUILT_INS)"; \
 		then \
 			test -n "$(INSTALL_SYMLINKS)" && \
-			ln -s "$$destdir_from_execdir_SQ/$(bindir_relative_SQ)/git$X" "$$execdir/$$p" || \
+			ln -s "$$destdir_from_execdir_SQ/$(bindir_relative_SQ)/jutsu$X" "$$execdir/$$p" || \
 			{ test -z "$(NO_INSTALL_HARDLINKS)" && \
-			  ln "$$execdir/git$X" "$$execdir/$$p" 2>/dev/null || \
-			  ln -s "git$X" "$$execdir/$$p" 2>/dev/null || \
-			  cp "$$execdir/git$X" "$$execdir/$$p" || exit; }; \
+			  ln "$$execdir/jutsu$X" "$$execdir/$$p" 2>/dev/null || \
+			  ln -s "jutsu$X" "$$execdir/$$p" 2>/dev/null || \
+			  cp "$$execdir/jutsu$X" "$$execdir/$$p" || exit; }; \
 		fi \
 	done && \
 	remote_curl_aliases="$(REMOTE_CURL_ALIASES)" && \
@@ -3866,14 +3876,14 @@ artifacts-tar:: $(ALL_COMMANDS_TO_INSTALL) $(SCRIPT_LIB) $(OTHER_PROGRAMS) \
 htmldocs = git-htmldocs-$(GIT_VERSION)
 manpages = git-manpages-$(GIT_VERSION)
 .PHONY: dist-doc distclean
-dist-doc: git$X
+dist-doc: jutsu$X
 	$(RM) -r .doc-tmp-dir
 	mkdir .doc-tmp-dir
 	$(MAKE) -C Documentation WEBDOC_DEST=../.doc-tmp-dir install-webdoc
-	./git -C .doc-tmp-dir init
-	./git -C .doc-tmp-dir add .
-	./git -C .doc-tmp-dir commit -m htmldocs
-	./git -C .doc-tmp-dir archive --format=tar --prefix=./ HEAD^{tree} \
+	./jutsu -C .doc-tmp-dir init
+	./jutsu -C .doc-tmp-dir add .
+	./jutsu -C .doc-tmp-dir commit -m htmldocs
+	./jutsu -C .doc-tmp-dir archive --format=tar --prefix=./ HEAD^{tree} \
 		> $(htmldocs).tar
 	gzip -n -9 -f $(htmldocs).tar
 	:

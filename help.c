@@ -73,6 +73,12 @@ static const char *drop_prefix(const char *name, uint32_t category)
 	}
 	if (skip_prefix(name, prefix, &new_name))
 		return new_name;
+	if (category != CAT_guide && category != CAT_userinterfaces && category != CAT_developerinterfaces) {
+		if (skip_prefix(name, "jutsu-", &new_name))
+			return new_name;
+	} else if (skip_prefix(name, "jutsu", &new_name)) {
+		return new_name;
+	}
 
 	return name;
 }
@@ -295,6 +301,8 @@ void load_command_list(const char *prefix,
 
 	if (exec_path) {
 		list_commands_in_dir(main_cmds, exec_path, prefix);
+		if (!strcmp(prefix, "jutsu-"))
+			list_commands_in_dir(main_cmds, exec_path, "git-");
 		QSORT(main_cmds->names, main_cmds->cnt, cmdname_compare);
 		uniq(main_cmds);
 	}
@@ -305,8 +313,11 @@ void load_command_list(const char *prefix,
 		while (1) {
 			if ((colon = strchr(path, PATH_SEP)))
 				*colon = 0;
-			if (!exec_path || strcmp(path, exec_path))
+			if (!exec_path || strcmp(path, exec_path)) {
 				list_commands_in_dir(other_cmds, path, prefix);
+				if (!strcmp(prefix, "jutsu-"))
+					list_commands_in_dir(other_cmds, path, "git-");
+			}
 
 			if (!colon)
 				break;
@@ -366,7 +377,7 @@ void list_all_main_cmds(struct string_list *list)
 
 	memset(&main_cmds, 0, sizeof(main_cmds));
 	memset(&other_cmds, 0, sizeof(other_cmds));
-	load_command_list("git-", &main_cmds, &other_cmds);
+	load_command_list("jutsu-", &main_cmds, &other_cmds);
 
 	for (i = 0; i < main_cmds.cnt; i++)
 		string_list_append(list, main_cmds.names[i]->name);
@@ -382,7 +393,7 @@ void list_all_other_cmds(struct string_list *list)
 
 	memset(&main_cmds, 0, sizeof(main_cmds));
 	memset(&other_cmds, 0, sizeof(other_cmds));
-	load_command_list("git-", &main_cmds, &other_cmds);
+	load_command_list("jutsu-", &main_cmds, &other_cmds);
 
 	for (i = 0; i < other_cmds.cnt; i++)
 		string_list_append(list, other_cmds.names[i]->name);
@@ -658,11 +669,11 @@ char *help_unknown_cmd(const char *cmd)
 		cfg.autocorrect = AUTOCORRECT_NEVER;
 
 	if (cfg.autocorrect == AUTOCORRECT_NEVER) {
-		fprintf_ln(stderr, _("git: '%s' is not a git command. See 'git --help'."), cmd);
+		fprintf_ln(stderr, _("jutsu: '%s' is not a jutsu command. See 'jutsu --help'."), cmd);
 		exit(1);
 	}
 
-	load_command_list("git-", &main_cmds, &other_cmds);
+	load_command_list("jutsu-", &main_cmds, &other_cmds);
 
 	add_cmd_list(&main_cmds, &cfg.aliases);
 	add_cmd_list(&main_cmds, &other_cmds);
@@ -706,7 +717,7 @@ char *help_unknown_cmd(const char *cmd)
 	QSORT(main_cmds.names, main_cmds.cnt, levenshtein_compare);
 
 	if (!main_cmds.cnt)
-		die(_("Uh oh. Your system reports no Git commands at all."));
+		die(_("Uh oh. Your system reports no jutsu commands at all."));
 
 	/* skip and count prefix matches */
 	for (n = 0; n < main_cmds.cnt && !main_cmds.names[n]->len; n++)
@@ -728,7 +739,7 @@ char *help_unknown_cmd(const char *cmd)
 		char *assumed = xstrdup(main_cmds.names[0]->name);
 
 		fprintf_ln(stderr,
-			   _("WARNING: You called a Git command named '%s', "
+			   _("WARNING: You called a jutsu command named '%s', "
 			     "which does not exist."),
 			   cmd);
 		if (cfg.autocorrect == AUTOCORRECT_IMMEDIATELY)
@@ -759,7 +770,7 @@ char *help_unknown_cmd(const char *cmd)
 		return assumed;
 	}
 
-	fprintf_ln(stderr, _("git: '%s' is not a git command. See 'git --help'."), cmd);
+	fprintf_ln(stderr, _("jutsu: '%s' is not a jutsu command. See 'jutsu --help'."), cmd);
 
 	if (SIMILAR_ENOUGH(best_similarity)) {
 		fprintf_ln(stderr,
@@ -777,12 +788,9 @@ char *help_unknown_cmd(const char *cmd)
 void get_version_info(struct strbuf *buf, int show_build_options)
 {
 	/*
-	 * The format of this string should be kept stable for compatibility
-	 * with external projects that rely on the output of "git version".
-	 *
 	 * Always show the version, even if other options are given.
 	 */
-	strbuf_addf(buf, "git version %s\n", git_version_string);
+	strbuf_addf(buf, "jutsu version %s\n", git_version_string);
 
 	if (show_build_options) {
 		strbuf_addf(buf, "cpu: %s\n", GIT_HOST_CPU);
@@ -835,7 +843,7 @@ int cmd_version(int argc, const char **argv, const char *prefix, struct reposito
 	struct strbuf buf = STRBUF_INIT;
 	int build_options = 0;
 	const char * const usage[] = {
-		N_("git version [--build-options]"),
+		N_("jutsu version [--build-options]"),
 		NULL
 	};
 	struct option options[] = {

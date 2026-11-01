@@ -1119,7 +1119,7 @@ static int odb_source_files_generate_pack(struct odb_source *source UNUSED,
 	 */
 	if (opts->pack_objects_hook) {
 		strvec_push(&cp->args, opts->pack_objects_hook);
-		strvec_push(&cp->args, "git");
+		strvec_push(&cp->args, "jutsu");
 		cp->use_shell = 1;
 	} else {
 		cp->git_cmd = 1;

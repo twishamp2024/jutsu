@@ -190,7 +190,12 @@ int cmd_main(int argc, const char **argv)
 	}
 
 	prog = xstrdup(argv[2]);
-	if (!strncmp(prog, "git", 3) && isspace(prog[3]))
+	if (!strncmp(prog, "jutsu", 5) && isspace(prog[5])) {
+		/* Accept "jutsu foo" as if the caller said "git-foo". */
+		char *new_prog = xstrfmt("git-%s", prog + 6);
+		free(prog);
+		prog = new_prog;
+	} else if (!strncmp(prog, "git", 3) && isspace(prog[3]))
 		/* Accept "git foo" as if the caller said "git-foo". */
 		prog[3] = '-';
 
