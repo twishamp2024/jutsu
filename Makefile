@@ -1799,7 +1799,7 @@ ifdef NO_CURL
 	REMOTE_CURL_PRIMARY =
 	REMOTE_CURL_ALIASES =
 	REMOTE_CURL_NAMES =
-	EXCLUDED_PROGRAMS += git-http-fetch git-http-push
+	EXCLUDED_PROGRAMS += jutsu-http-fetch jutsu-http-push
 else
         ifdef CURLDIR
 		# Try "-Wl,-rpath=$(CURLDIR)/$(lib)" in such a case.
@@ -1820,8 +1820,8 @@ else
         endif
 	BASIC_CFLAGS += $(CURL_CFLAGS)
 
-	REMOTE_CURL_PRIMARY = git-remote-http$X
-	REMOTE_CURL_ALIASES = git-remote-https$X git-remote-ftp$X git-remote-ftps$X
+	REMOTE_CURL_PRIMARY = jutsu-remote-http$X
+	REMOTE_CURL_ALIASES = jutsu-remote-https$X jutsu-remote-ftp$X jutsu-remote-ftps$X
 	REMOTE_CURL_NAMES = $(REMOTE_CURL_PRIMARY) $(REMOTE_CURL_ALIASES)
 	PROGRAM_OBJS += http-fetch.o
 	PROGRAMS += $(REMOTE_CURL_NAMES)
@@ -3031,10 +3031,10 @@ git-imap-send$X: imap-send.o $(IMAP_SEND_BUILDDEPS) GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(IMAP_SEND_LDFLAGS) $(LIBS)
 
-git-http-fetch$X: http.o http-walker.o http-fetch.o GIT-LDFLAGS $(GITLIBS)
+jutsu-http-fetch$X: http.o http-walker.o http-fetch.o GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(CURL_LIBCURL) $(LIBS)
-git-http-push$X: http.o http-push.o GIT-LDFLAGS $(GITLIBS)
+jutsu-http-push$X: http.o http-push.o GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(CURL_LIBCURL) $(EXPAT_LIBEXPAT) $(LIBS)
 
@@ -3783,11 +3783,11 @@ endif
 	for p in $$remote_curl_aliases; do \
 		$(RM) "$$execdir/$$p" && \
 		test -n "$(INSTALL_SYMLINKS)" && \
-		ln -s "git-remote-http$X" "$$execdir/$$p" || \
+		ln -s "jutsu-remote-http$X" "$$execdir/$$p" || \
 		{ test -z "$(NO_INSTALL_HARDLINKS)" && \
-		  ln "$$execdir/git-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
-		  ln -s "git-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
-		  cp "$$execdir/git-remote-http$X" "$$execdir/$$p" || exit; } \
+		  ln "$$execdir/jutsu-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
+		  ln -s "jutsu-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
+		  cp "$$execdir/jutsu-remote-http$X" "$$execdir/$$p" || exit; } \
 	done
 
 .PHONY: install-doc install-man install-man-perl install-html install-info install-pdf
