@@ -4,6 +4,12 @@
 /git-shell
 /git-upload-archive
 /git-upload-pack
+/jutsu
+/jutsu-cvsserver
+/jutsu-receive-pack
+/jutsu-shell
+/jutsu-upload-archive
+/jutsu-upload-pack
 /scalar
 /test-fake-ssh
 /test-tool

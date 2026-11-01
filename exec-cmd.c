@@ -26,6 +26,7 @@
 #define MAX_ARGS 32
 
 static const char *system_prefix(void);
+static const char *argv0_dir;
 
 #ifdef RUNTIME_PREFIX
 
@@ -264,6 +265,7 @@ void git_resolve_executable_dir(const char *argv0)
 		resolved[slash - resolved] = '\0';
 
 	executable_dirname = resolved;
+	argv0_dir = resolved;
 	trace_printf("trace: resolved executable dir: %s\n",
 		     executable_dirname);
 }
@@ -279,11 +281,25 @@ static const char *system_prefix(void)
 }
 
 /*
- * This is called during initialization, but No work needs to be done here when
- * runtime prefix is not being used.
+ * When runtime prefix is not being used, still resolve the directory of argv0
+ * so child jutsu commands spawned via PATH can be found when running uninstalled.
  */
-void git_resolve_executable_dir(const char *argv0 UNUSED)
+void git_resolve_executable_dir(const char *argv0)
 {
+	if (argv0 && find_last_dir_sep(argv0)) {
+		struct strbuf buf = STRBUF_INIT;
+		char *resolved;
+		const char *slash;
+		strbuf_add_absolute_path(&buf, argv0);
+		resolved = strbuf_detach(&buf, NULL);
+		slash = find_last_dir_sep(resolved);
+		if (slash) {
+			resolved[slash - resolved] = '\0';
+			argv0_dir = resolved;
+		} else {
+			free(resolved);
+		}
+	}
 }
 
 #endif /* RUNTIME_PREFIX */
@@ -339,6 +355,8 @@ void setup_path(void)
 
 	git_set_exec_path(exec_path);
 	add_path(&new_path, exec_path);
+	if (argv0_dir)
+		add_path(&new_path, argv0_dir);
 
 	if (old_path)
 		strbuf_addstr(&new_path, old_path);
