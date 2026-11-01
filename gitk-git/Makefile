@@ -66,11 +66,11 @@ uninstall::
 clean::
 	$(RM) gitk-wish po/*.msg GIT-TCLTK-VARS
 
-gitk-wish: gitk GIT-TCLTK-VARS
+gitk-wish: jutsuk GIT-TCLTK-VARS
 	$(QUIET_GEN)$(RM) $@ $@+ && \
 	$(SHELL_PATH) ./generate-tcl.sh "$(TCLTK_PATH_SQ)" "$<" "$@"
 
-$(PO_TEMPLATE): gitk
+$(PO_TEMPLATE): jutsuk
 	$(XGETTEXT) -kmc -LTcl --package-name=Gitk -o $@ gitk
 update-po:: $(PO_TEMPLATE)
 	$(foreach p, $(ALL_POFILES), echo Updating $p ; msgmerge -U --add-location $p $(PO_TEMPLATE) ; )

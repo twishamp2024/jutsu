@@ -25,7 +25,7 @@
 #include "color.h"
 
 static const char * const push_usage[] = {
-	N_("git push [<options>] [<repository> [<refspec>...]]"),
+	N_("jutsu rasengan [<options>] [<repository> [<refspec>...]]"),
 	NULL,
 };
 
@@ -177,11 +177,11 @@ static NORETURN void die_push_simple(struct branch *branch,
 	      "the name of your current branch.  To push to the upstream branch\n"
 	      "on the remote, use\n"
 	      "\n"
-	      "    git push %s HEAD:%s\n"
+	      "    jutsu rasengan %s HEAD:%s\n"
 	      "\n"
 	      "To push to the branch of the same name on the remote, use\n"
 	      "\n"
-	      "    git push %s HEAD\n"
+	      "    jutsu rasengan %s HEAD\n"
 	      "%s%s"),
 	    remote->name, short_upstream,
 	    remote->name, advice_pushdefault_maybe,
@@ -193,7 +193,7 @@ static const char message_detached_head_die[] =
 	   "To push the history leading to the current (detached HEAD)\n"
 	   "state now, use\n"
 	   "\n"
-	   "    git push %s HEAD:<name-of-remote-branch>\n");
+	   "    jutsu rasengan %s HEAD:<name-of-remote-branch>\n");
 
 static const char *get_upstream_ref(int flags, struct branch *branch, const char *remote_name)
 {
@@ -214,7 +214,7 @@ static const char *get_upstream_ref(int flags, struct branch *branch, const char
 		die(_("The current branch %s has no upstream branch.\n"
 		    "To push the current branch and set the remote as upstream, use\n"
 		    "\n"
-		    "    git push --set-upstream %s %s\n"
+		    "    jutsu rasengan --set-upstream %s %s\n"
 		    "%s"),
 		    branch->name,
 		    remote_name,
@@ -293,20 +293,20 @@ static const char message_advice_pull_before_push[] =
 	N_("Updates were rejected because the tip of your current branch is behind\n"
 	   "its remote counterpart. If you want to integrate the remote changes,\n"
 	   "use 'git pull' before pushing again.\n"
-	   "See the 'Note about fast-forwards' in 'git push --help' for details.");
+	   "See the 'Note about fast-forwards' in 'jutsu rasengan --help' for details.");
 
 static const char message_advice_checkout_pull_push[] =
 	N_("Updates were rejected because a pushed branch tip is behind its remote\n"
 	   "counterpart. If you want to integrate the remote changes, use 'git pull'\n"
 	   "before pushing again.\n"
-	   "See the 'Note about fast-forwards' in 'git push --help' for details.");
+	   "See the 'Note about fast-forwards' in 'jutsu rasengan --help' for details.");
 
 static const char message_advice_ref_fetch_first[] =
 	N_("Updates were rejected because the remote contains work that you do not\n"
 	   "have locally. This is usually caused by another repository pushing to\n"
 	   "the same ref. If you want to integrate the remote changes, use\n"
 	   "'git pull' before pushing again.\n"
-	   "See the 'Note about fast-forwards' in 'git push --help' for details.");
+	   "See the 'Note about fast-forwards' in 'jutsu rasengan --help' for details.");
 
 static const char message_advice_ref_already_exists[] =
 	N_("Updates were rejected because the tag already exists in the remote.");
@@ -320,7 +320,7 @@ static const char message_advice_ref_needs_update[] =
 	N_("Updates were rejected because the tip of the remote-tracking branch has\n"
 	   "been updated since the last checkout. If you want to integrate the\n"
 	   "remote changes, use 'git pull' before pushing again.\n"
-	   "See the 'Note about fast-forwards' in 'git push --help' for details.");
+	   "See the 'Note about fast-forwards' in 'jutsu rasengan --help' for details.");
 
 static void advise_pull_before_push(void)
 {
@@ -388,10 +388,10 @@ static int push_with_options(struct transport *transport, struct refspec *rs,
 
 	if (verbosity > 0)
 		fprintf(stderr, _("Pushing to %s\n"), anon_url);
-	trace2_region_enter("push", "transport_push", the_repository);
+	trace2_region_enter("rasengan", "transport_push", the_repository);
 	err = transport_push(the_repository, transport,
 			     rs, flags, &reject_reasons);
-	trace2_region_leave("push", "transport_push", the_repository);
+	trace2_region_leave("rasengan", "transport_push", the_repository);
 	if (err != 0) {
 		fprintf(stderr, "%s", push_get_color(PUSH_COLOR_ERROR));
 		error(_("failed to push some refs to '%s'"), anon_url);
@@ -559,7 +559,7 @@ static int push_multiple(struct string_list *list,
 	size_t i;
 	struct strvec argv = STRVEC_INIT;
 
-	strvec_push(&argv, "push");
+	strvec_push(&argv, "rasengan");
 
 	if (flags & TRANSPORT_PUSH_FORCE)
 		strvec_push(&argv, "--force");
@@ -682,13 +682,13 @@ static void die_if_repo_looks_like_ref(const char *repo)
 
 	code = die_message(_("'%s' is not a valid push target"), repo);
 	advise_if_enabled(ADVICE_PUSH_REPO_LOOKS_LIKE_REF,
-			  _("Did you mean to use: git push %s %s?"),
+			  _("Did you mean to use: jutsu rasengan %s %s?"),
 			  name.buf, slash + 1);
 	strbuf_release(&name);
 	exit(code);
 }
 
-int cmd_push(int argc,
+int cmd_rasengan(int argc,
 	     const char **argv,
 	     const char *prefix,
 	     struct repository *repository UNUSED)
@@ -743,7 +743,7 @@ int cmd_push(int argc,
 		OPT_END()
 	};
 
-	packet_trace_identity("push");
+	packet_trace_identity("rasengan");
 	repo_config(the_repository, git_push_config, &flags);
 	argc = parse_options(argc, argv, prefix, options, push_usage, 0);
 	push_options = (push_options_cmdline.nr
@@ -803,19 +803,19 @@ int cmd_push(int argc,
 			die(_("No configured push destination.\n"
 			    "Either specify the URL from the command-line or configure a remote repository using\n"
 			    "\n"
-			    "    git remote add <name> <url>\n"
+			    "    jutsu remote add <name> <url>\n"
 			    "\n"
 			    "and then push using the remote name\n"
 			    "\n"
-			    "    git push <name>\n"
+			    "    jutsu rasengan <name>\n"
 			    "\n"
 			    "To push to multiple remotes at once, configure a remote group using\n"
 			    "\n"
-			    "    git config remotes.<groupname> \"<remote1> <remote2>\"\n"
+			    "    jutsu config remotes.<groupname> \"<remote1> <remote2>\"\n"
 			    "\n"
 			    "and then push using the group name\n"
 			    "\n"
-			    "    git push <groupname>\n"));
+			    "    jutsu rasengan <groupname>\n"));
 		string_list_append(&remote_group, r->name);
 	}
 

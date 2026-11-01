@@ -104,21 +104,21 @@ $(MAK_DIR_GITWEB)GITWEB-BUILD-OPTIONS: FORCE
 	     -e 's|@GITWEB_SITE_HEADER@|$(GITWEB_SITE_HEADER)|' \
 	     -e 's|@GITWEB_SITE_FOOTER@|$(GITWEB_SITE_FOOTER)|' \
 	     -e 's|@HIGHLIGHT_BIN@|$(HIGHLIGHT_BIN)|' \
-	     $(MAK_DIR_GITWEB)GITWEB-BUILD-OPTIONS.in >"$@+"
+	     $(MAK_DIR_GITWEB)JUTSUWEB-BUILD-OPTIONS.in >"$@+"
 	@cmp -s $@+ $@ && rm -f $@+ || mv -f $@+ $@
 
-$(MAK_DIR_GITWEB)gitweb.cgi: $(MAK_DIR_GITWEB)generate-gitweb-cgi.sh
+$(MAK_DIR_GITWEB)gitweb.cgi: $(MAK_DIR_GITWEB)generate-jutsuweb-cgi.sh
 $(MAK_DIR_GITWEB)gitweb.cgi: $(MAK_DIR_GITWEB)GITWEB-BUILD-OPTIONS
 $(MAK_DIR_GITWEB)gitweb.cgi: GIT-VERSION-FILE
-$(MAK_DIR_GITWEB)gitweb.cgi: $(MAK_DIR_GITWEB)gitweb.perl
+$(MAK_DIR_GITWEB)gitweb.cgi: $(MAK_DIR_GITWEB)jutsuweb.perl
 	$(QUIET_GEN)$(RM) $@ $@+ && \
-	$(MAK_DIR_GITWEB)generate-gitweb-cgi.sh $(MAK_DIR_GITWEB)/GITWEB-BUILD-OPTIONS ./GIT-VERSION-FILE $< $@+ && \
+	$(MAK_DIR_GITWEB)generate-jutsuweb-cgi.sh $(MAK_DIR_GITWEB)/GITWEB-BUILD-OPTIONS ./GIT-VERSION-FILE $< $@+ && \
 	mv $@+ $@
 
-$(MAK_DIR_GITWEB)static/gitweb.js: $(MAK_DIR_GITWEB)generate-gitweb-js.sh
+$(MAK_DIR_GITWEB)static/gitweb.js: $(MAK_DIR_GITWEB)generate-jutsuweb-js.sh
 $(MAK_DIR_GITWEB)static/gitweb.js: $(addprefix $(MAK_DIR_GITWEB),$(GITWEB_JSLIB_FILES))
 	$(QUIET_GEN)$(RM) $@ $@+ && \
-	$(MAK_DIR_GITWEB)generate-gitweb-js.sh $@+ $(filter %.js,$^) && \
+	$(MAK_DIR_GITWEB)generate-jutsuweb-js.sh $@+ $(filter %.js,$^) && \
 	mv $@+ $@
 
 ### Installation rules

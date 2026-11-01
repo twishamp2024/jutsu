@@ -1,15 +1,15 @@
-git-push(1)
-===========
+git-rasengan(1)
+==============
 
 NAME
 ----
-git-push - Update remote refs along with associated objects
+git-rasengan - Update remote refs along with associated objects
 
 
 SYNOPSIS
 --------
 [synopsis]
-git push [--all | --branches | --mirror | --tags] [--follow-tags] [--atomic] [-n | --dry-run] [--receive-pack=<git-receive-pack>]
+jutsu rasengan [--all | --branches | --mirror | --tags] [--follow-tags] [--atomic] [-n | --dry-run] [--receive-pack=<git-receive-pack>]
 	 [--repo=<repository>] [-f | --force] [-d | --delete] [--prune] [-q | --quiet] [-v | --verbose]
 	 [-u | --set-upstream] [-o <string> | --push-option=<string>]
 	 [--[no-]signed | --signed=(true|false|if-asked)]

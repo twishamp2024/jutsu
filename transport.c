@@ -1365,9 +1365,9 @@ static void die_with_unpushed_submodules(struct string_list *needs_pushing)
 	for (size_t i = 0; i < needs_pushing->nr; i++)
 		fprintf(stderr, "  %s\n", needs_pushing->items[i].string);
 	fprintf(stderr, _("\nPlease try\n\n"
-			  "	git push --recurse-submodules=on-demand\n\n"
+			  "	jutsu rasengan --recurse-submodules=on-demand\n\n"
 			  "or cd to the path and use\n\n"
-			  "	git push\n\n"
+			  "	jutsu rasengan\n\n"
 			  "to push them to a remote.\n\n"));
 
 	string_list_clear(needs_pushing, 0);

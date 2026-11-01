@@ -9,12 +9,12 @@ all::
 #
 
 GIT-VERSION-FILE: FORCE
-	@$(SHELL_PATH) ./GIT-VERSION-GEN . $@ "$(PARENT_PROJECT_DIR)"
+	@$(SHELL_PATH) ./JUTSU-VERSION-GEN . $@ "$(PARENT_PROJECT_DIR)"
 
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 uname_R := $(shell sh -c 'uname -r 2>/dev/null || echo not')
 
-SCRIPT_SH = git-gui.sh
+SCRIPT_SH = jutsu-gui.sh
 GITGUI_MAIN := git-gui
 GITGUI_BUILT_INS = git-citool
 ALL_LIBFILES = $(wildcard lib/*.tcl)
@@ -130,8 +130,8 @@ git-gui: windows/git-gui.sh
 	cp $< $@
 endif
 
-$(GITGUI_MAIN): git-gui.sh GIT-VERSION-FILE GIT-GUI-BUILD-OPTIONS generate-git-gui.sh
-	$(QUIET_GEN)$(SHELL_PATH) generate-git-gui.sh "$<" "$@" ./GIT-GUI-BUILD-OPTIONS ./GIT-VERSION-FILE
+$(GITGUI_MAIN): jutsu-gui.sh GIT-VERSION-FILE GIT-GUI-BUILD-OPTIONS generate-jutsu-gui.sh
+	$(QUIET_GEN)$(SHELL_PATH) generate-jutsu-gui.sh "$<" "$@" ./GIT-GUI-BUILD-OPTIONS ./GIT-VERSION-FILE
 
 XGETTEXT   ?= xgettext
 ifdef NO_MSGFMT
@@ -167,14 +167,14 @@ GIT-GUI-BUILD-OPTIONS: FORCE
 		-e 's|@SHELL_PATH@|$(SHELL_PATH_SQ)|' \
 		-e 's|@TCLTK_PATH@|$(TCLTK_PATH_SQ)|' \
 		-e 's|@TCL_PATH@|$(TCL_PATH_SQ)|' \
-		$@.in >$@+
+		JUTSU-GUI-BUILD-OPTIONS.in >$@+
 	@if grep -q '^[A-Z][A-Z_]*=@.*@$$' $@+; then echo "Unsubstituted build options in $@" >&2 && exit 1; fi
 	@if cmp $@+ $@ >/dev/null 2>&1; then $(RM) $@+; else mv $@+ $@; fi
 
-git-gui--askpass: git-gui--askpass.sh GIT-GUI-BUILD-OPTIONS generate-script.sh
+git-gui--askpass: jutsu-gui--askpass.sh GIT-GUI-BUILD-OPTIONS generate-script.sh
 	$(QUIET_GEN)$(SHELL_PATH) generate-script.sh $@ $< ./GIT-GUI-BUILD-OPTIONS
 
-git-gui--askyesno: git-gui--askyesno.sh GIT-GUI-BUILD-OPTIONS generate-script.sh
+git-gui--askyesno: jutsu-gui--askyesno.sh GIT-GUI-BUILD-OPTIONS generate-script.sh
 	$(QUIET_GEN)$(SHELL_PATH) generate-script.sh $@ $< ./GIT-GUI-BUILD-OPTIONS
 
 ifdef GITGUI_WINDOWS_WRAPPER

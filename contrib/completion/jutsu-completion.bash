@@ -1164,11 +1164,11 @@ __git_complete_remote_or_refspec ()
 	while [ $c -lt $cword ]; do
 		i="${words[c]}"
 		case "$i" in
-		--mirror) [ "$cmd" = "push" ] && no_complete_refspec=1 ;;
-		-d|--delete) [ "$cmd" = "push" ] && lhs=0 ;;
+		--mirror) [ "$cmd" = "push" -o "$cmd" = "rasengan" ] && no_complete_refspec=1 ;;
+		-d|--delete) [ "$cmd" = "push" -o "$cmd" = "rasengan" ] && lhs=0 ;;
 		--all)
 			case "$cmd" in
-			push) no_complete_refspec=1 ;;
+			push|rasengan) no_complete_refspec=1 ;;
 			fetch)
 				return
 				;;
@@ -1218,7 +1218,7 @@ __git_complete_remote_or_refspec ()
 			__git_complete_refs --pfx="$pfx" --cur="$cur_"
 		fi
 		;;
-	push)
+	push|rasengan)
 		if [ $lhs = 1 ]; then
 			__git_complete_refs --pfx="$pfx" --cur="$cur_"
 		else
@@ -2567,7 +2567,7 @@ __git_complete_force_with_lease ()
 	esac
 }
 
-_git_push ()
+_git_rasengan ()
 {
 	case "$prev" in
 	--repo)
@@ -2593,11 +2593,16 @@ _git_push ()
 		return
 		;;
 	--*)
-		__gitcomp_builtin push
+		__gitcomp_builtin rasengan
 		return
 		;;
 	esac
 	__git_complete_remote_or_refspec
+}
+
+_jutsu_rasengan ()
+{
+	_git_rasengan
 }
 
 _git_range_diff ()

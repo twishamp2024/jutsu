@@ -1480,7 +1480,7 @@ BUILTIN_OBJS += builtin/patch-id.o
 BUILTIN_OBJS += builtin/prune-packed.o
 BUILTIN_OBJS += builtin/prune.o
 BUILTIN_OBJS += builtin/pull.o
-BUILTIN_OBJS += builtin/push.o
+BUILTIN_OBJS += builtin/rasengan.o
 BUILTIN_OBJS += builtin/range-diff.o
 BUILTIN_OBJS += builtin/read-tree.o
 BUILTIN_OBJS += builtin/rebase.o
@@ -2814,12 +2814,12 @@ GIT-PERL-HEADER: $(PERL_HEADER_TEMPLATE) GIT-PERL-DEFINES Makefile
 perllibdir:
 	@echo '$(perllibdir_SQ)'
 
-git-instaweb: git-instaweb.sh tools/generate-script.sh GIT-BUILD-OPTIONS GIT-SCRIPT-DEFINES
+jutsu-instaweb: jutsu-instaweb.sh tools/generate-script.sh GIT-BUILD-OPTIONS GIT-SCRIPT-DEFINES
 	$(QUIET_GEN)./tools/generate-script.sh "$<" "$@+" ./GIT-BUILD-OPTIONS && \
 	chmod +x $@+ && \
 	mv $@+ $@
 else # NO_PERL
-$(SCRIPT_PERL_GEN) git-instaweb: % : unimplemented.sh
+$(SCRIPT_PERL_GEN) jutsu-instaweb: % : unimplemented.sh
 	$(QUIET_GEN) \
 	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
 	    -e 's|@REASON@|NO_PERL=$(NO_PERL)|g' \
@@ -3031,10 +3031,10 @@ git-imap-send$X: imap-send.o $(IMAP_SEND_BUILDDEPS) GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(IMAP_SEND_LDFLAGS) $(LIBS)
 
-jutsu-http-fetch$X: http.o http-walker.o http-fetch.o GIT-LDFLAGS $(GITLIBS)
+git-http-fetch$X jutsu-http-fetch$X: http.o http-walker.o http-fetch.o GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(CURL_LIBCURL) $(LIBS)
-jutsu-http-push$X: http.o http-push.o GIT-LDFLAGS $(GITLIBS)
+git-http-push$X jutsu-http-push$X: http.o http-push.o GIT-LDFLAGS $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) $(filter %.o,$^) \
 		$(CURL_LIBCURL) $(EXPAT_LIBEXPAT) $(LIBS)
 
@@ -3230,7 +3230,7 @@ LOCALIZED_C_CORE =
 LOCALIZED_C_CORE += builtin/checkout.c
 LOCALIZED_C_CORE += builtin/clone.c
 LOCALIZED_C_CORE += builtin/index-pack.c
-LOCALIZED_C_CORE += builtin/push.c
+LOCALIZED_C_CORE += builtin/rasengan.c
 LOCALIZED_C_CORE += builtin/reset.c
 LOCALIZED_C_CORE += remote.c
 LOCALIZED_C_CORE += wt-status.c

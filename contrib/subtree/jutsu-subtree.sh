@@ -1100,9 +1100,9 @@ cmd_push () {
 		localrev_presplit=$(git rev-parse -q --verify "$localrevname_presplit^{commit}") ||
 			die "fatal: '$localrevname_presplit' does not refer to a commit"
 
-		echo "git push using: " "$repository" "$refspec"
+		echo "jutsu rasengan using: " "$repository" "$refspec"
 		localrev=$(cmd_split "$localrev_presplit" "$repository") || die
-		git push "$repository" "$localrev":"refs/heads/$remoteref"
+		jutsu rasengan "$repository" "$localrev":"refs/heads/$remoteref"
 	else
 		die "fatal: '$dir' must already exist. Try 'git subtree add'."
 	fi

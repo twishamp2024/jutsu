@@ -631,7 +631,7 @@ static struct cmd_struct commands[] = {
 	{ "prune", cmd_prune, RUN_SETUP },
 	{ "prune-packed", cmd_prune_packed, RUN_SETUP },
 	{ "pull", cmd_pull, RUN_SETUP | NEED_WORK_TREE },
-	{ "push", cmd_push, RUN_SETUP },
+	{ "rasengan", cmd_rasengan, RUN_SETUP },
 	{ "range-diff", cmd_range_diff, RUN_SETUP | USE_PAGER },
 	{ "read-tree", cmd_read_tree, RUN_SETUP },
 	{ "rebase", cmd_rebase, RUN_SETUP | NEED_WORK_TREE },
@@ -828,6 +828,9 @@ static void execv_dashed_external(const char **argv)
 	else if (errno != ENOENT)
 		exit(128);
 
+	if (!strcmp(argv[0], "push"))
+		return;
+
 	/* Fall back to git-%s for existing external helpers/tools */
 	child_process_init(&cmd);
 	strvec_pushf(&cmd.args, "git-%s", argv[0]);
@@ -956,6 +959,9 @@ int cmd_main(int argc, const char **argv)
 	if (!strcmp(cmd, "git") || !strcmp(cmd, "git.exe"))
 		die(_("the 'git' executable name is no longer supported; use 'jutsu' instead"));
 
+	if (!strcmp(cmd, "push") || !strcmp(cmd, "git-push") || !strcmp(cmd, "jutsu-push"))
+		die(_("the 'push' subcommand is no longer supported; use 'rasengan' instead"));
+
 	/*
 	 * "jutsu-xxxx" is the same as "jutsu xxxx", but we obviously:
 	 *
@@ -997,6 +1003,9 @@ int cmd_main(int argc, const char **argv)
 		argv[0] = "help";
 
 	cmd = argv[0];
+
+	if (!strcmp(cmd, "push"))
+		die(_("the 'push' subcommand is no longer supported; use 'rasengan' instead"));
 
 	/*
 	 * We use PATH to find git commands, but we prepend some higher
