@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "environment.h"
 #include "gettext.h"
 #include "hex.h"

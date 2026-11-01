@@ -1,7 +1,7 @@
 #ifndef BUILTIN_H
 #define BUILTIN_H
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "repository.h"
 
 /*

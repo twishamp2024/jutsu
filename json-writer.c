@@ -1,6 +1,6 @@
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "json-writer.h"
 
 void jw_init(struct json_writer *jw)

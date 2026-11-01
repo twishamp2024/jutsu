@@ -1,7 +1,7 @@
 #ifndef OBJECT_FILE_H
 #define OBJECT_FILE_H
 
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "object.h"
 #include "odb.h"
 #include "odb/source-loose.h"

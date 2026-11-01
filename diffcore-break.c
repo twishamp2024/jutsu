@@ -4,7 +4,7 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "diffcore.h"
 #include "hash.h"
 #include "object.h"

@@ -1,6 +1,6 @@
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "repack.h"
 #include "repository.h"
 #include "hex.h"

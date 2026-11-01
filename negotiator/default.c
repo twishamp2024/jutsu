@@ -1,6 +1,6 @@
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "default.h"
 #include "../commit.h"
 #include "../fetch-negotiator.h"

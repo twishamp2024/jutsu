@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "prio-queue.h"
 
 static inline int compare(struct prio_queue *queue, size_t i, size_t j)

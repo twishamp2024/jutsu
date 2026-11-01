@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "./sha256.h"
 
 #undef RND

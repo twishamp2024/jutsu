@@ -11,7 +11,7 @@
 #define GIT_TEST_PROGRESS_ONLY
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "pager.h"
 #include "progress.h"
 #include "repository.h"

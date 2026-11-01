@@ -11,7 +11,7 @@ series=       path to the quilt series file
 keep-non-patch Pass -b to git mailinfo
 "
 SUBDIRECTORY_ON=Yes
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 
 dry_run=""
 quilt_author=""

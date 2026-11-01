@@ -1,6 +1,6 @@
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "strbuf.h"
 #include "trace2.h"

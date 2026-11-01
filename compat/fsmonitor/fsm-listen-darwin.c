@@ -23,7 +23,7 @@
 #endif
 #endif
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "fsmonitor-ll.h"
 #include "fsm-listen.h"
 #include "fsmonitor--daemon.h"

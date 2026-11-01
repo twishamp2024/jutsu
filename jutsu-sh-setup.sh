@@ -49,13 +49,19 @@ if ! command -v git >/dev/null 2>&1 && command -v jutsu >/dev/null 2>&1; then
 	}
 fi
 
-# Source git-sh-i18n for gettext support.
-if test -n "$GIT_EXEC_PATH" && test -f "$GIT_EXEC_PATH/git-sh-i18n"; then
-	. "$GIT_EXEC_PATH/git-sh-i18n"
+# Source jutsu-sh-i18n / git-sh-i18n for gettext support.
+_exec_path=""
+if test -n "$GIT_EXEC_PATH"; then
+	_exec_path="$GIT_EXEC_PATH"
 elif command -v jutsu >/dev/null 2>&1; then
-	. "$(jutsu --exec-path)/git-sh-i18n"
+	_exec_path="$(jutsu --exec-path)"
 else
-	. "$(git --exec-path)/git-sh-i18n"
+	_exec_path="$(git --exec-path)"
+fi
+if test -f "$_exec_path/jutsu-sh-i18n"; then
+	. "$_exec_path/jutsu-sh-i18n"
+elif test -f "$_exec_path/git-sh-i18n"; then
+	. "$_exec_path/git-sh-i18n"
 fi
 
 die () {

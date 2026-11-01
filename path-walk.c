@@ -1,7 +1,7 @@
 /*
  * path-walk.c: implementation for path-based walks of the object graph.
  */
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "path-walk.h"
 #include "blob.h"
 #include "commit.h"

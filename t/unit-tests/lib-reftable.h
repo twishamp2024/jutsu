@@ -1,7 +1,7 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "clar/clar.h"
 #include "clar-decls.h"
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "reftable/reftable-writer.h"
 #include "strbuf.h"
 

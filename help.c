@@ -1,8 +1,8 @@
 #define USE_THE_REPOSITORY_VARIABLE
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
-#include "git-zlib.h"
+#include "jutsu-compat-util.h"
+#include "jutsu-zlib.h"
 #include "config.h"
 #include "builtin.h"
 #include "exec-cmd.h"
@@ -24,7 +24,7 @@
 #include "utf8.h"
 
 #ifndef NO_CURL
-#include "git-curl-compat.h" /* For LIBCURL_VERSION only */
+#include "jutsu-curl-compat.h" /* For LIBCURL_VERSION only */
 #endif
 
 struct category_description {

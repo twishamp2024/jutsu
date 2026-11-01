@@ -9,7 +9,7 @@
  * published by the Free Software Foundation.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "delta.h"
 
 void *patch_delta(const void *src_buf, size_t src_size,

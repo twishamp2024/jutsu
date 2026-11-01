@@ -12,7 +12,7 @@ OPTIONS_SPEC='git request-pull [options] start url [end]
 p    show patch text as well
 '
 
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 
 GIT_PAGER=
 export GIT_PAGER

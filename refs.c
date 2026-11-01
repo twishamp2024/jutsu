@@ -2,7 +2,7 @@
  * The backend-independent part of the reference module.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "advice.h"
 #include "config.h"

@@ -9,7 +9,7 @@
  */
 
 #include "test-tool.h"
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "delta.h"
 #include "strbuf.h"
 

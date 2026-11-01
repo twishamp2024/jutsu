@@ -6,7 +6,7 @@
 
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "date.h"
 #include "gettext.h"
 #include "pager.h"

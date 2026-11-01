@@ -1,4 +1,4 @@
-#include "../git-compat-util.h"
+#include "../jutsu-compat-util.h"
 #include "../strbuf.h"
 
 /* Adapted from libiberty's basename.c.  */

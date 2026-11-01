@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "varint.h"
 
 uint64_t decode_varint(const unsigned char **bufp)

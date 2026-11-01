@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "repo-settings.h"
 #include "repository.h"

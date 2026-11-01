@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "gettext.h"
 #include "simple-ipc.h"
 #include "strbuf.h"

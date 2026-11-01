@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "gettext.h"
 #include "odb/source.h"
 #include "odb/transaction.h"

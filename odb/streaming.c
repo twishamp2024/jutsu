@@ -2,7 +2,7 @@
  * Copyright (c) 2011, Google Inc.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "convert.h"
 #include "environment.h"
 #include "repository.h"

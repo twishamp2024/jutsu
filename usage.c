@@ -4,7 +4,7 @@
  * Copyright (C) Linus Torvalds, 2005
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "gettext.h"
 #include "trace2.h"
 #include "strbuf.h"

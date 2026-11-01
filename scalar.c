@@ -4,7 +4,7 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "gettext.h"
 #include "parse-options.h"

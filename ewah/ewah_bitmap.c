@@ -17,7 +17,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "ewok.h"
 #include "ewok_rlw.h"
 

@@ -21,7 +21,7 @@
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
 /* To bump the minimum Windows version to Windows 8.1 */
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 
 /* Tell gcc not to warn about the (nfd < 0) tests, below.  */
 #if (__GNUC__ == 4 && 3 <= __GNUC_MINOR__) || 4 < __GNUC__

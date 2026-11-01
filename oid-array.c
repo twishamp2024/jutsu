@@ -1,6 +1,6 @@
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "oid-array.h"
 #include "hash-lookup.h"
 

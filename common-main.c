@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "common-init.h"
 
 int main(int argc, const char **argv)

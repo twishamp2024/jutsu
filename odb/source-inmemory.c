@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "object-file.h"
 #include "odb.h"
 #include "fsck.h"

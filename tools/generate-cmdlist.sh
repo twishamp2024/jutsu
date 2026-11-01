@@ -67,16 +67,21 @@ print_command_list () {
 	echo "$2" |
 	while read cmd rest
 	do
+		doc="$1/Documentation/$cmd.adoc"
+		if ! test -f "$doc"; then
+			jcmd=$(echo "$cmd" | sed -e 's/^git-/jutsu-/' -e 's/^git/jutsu/')
+			doc="$1/Documentation/$jcmd.adoc"
+		fi
 		synopsis=
 		while read line
 		do
 			case "$line" in
-			"$cmd - "*)
-				synopsis=${line#$cmd - }
+			"$cmd - "* | "jutsu-${cmd#git-} - "* | "${cmd#git-} - "*)
+				synopsis=${line#* - }
 				break
 				;;
 			esac
-		done <"$1/Documentation/$cmd.adoc"
+		done <"$doc"
 
 		printf '\t{ "%s", N_("%s"), 0' "$cmd" "$synopsis"
 		printf " | CAT_%s" $rest

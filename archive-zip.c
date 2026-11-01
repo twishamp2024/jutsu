@@ -4,11 +4,11 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "archive.h"
 #include "gettext.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "hex.h"
 #include "utf8.h"
 #include "odb.h"

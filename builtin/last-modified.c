@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "bloom.h"
 #include "builtin.h"
 #include "commit-graph.h"

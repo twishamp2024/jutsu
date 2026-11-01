@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "compat/terminal.h"
 #include "gettext.h"
 #include "sigchain.h"

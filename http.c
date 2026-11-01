@@ -1,8 +1,8 @@
 #define USE_THE_REPOSITORY_VARIABLE
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
-#include "git-curl-compat.h"
+#include "jutsu-compat-util.h"
+#include "jutsu-curl-compat.h"
 #include "environment.h"
 #include "hex.h"
 #include "http.h"

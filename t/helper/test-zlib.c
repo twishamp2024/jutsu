@@ -1,5 +1,5 @@
 #include "test-tool.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "strbuf.h"
 
 static const char *zlib_usage = "test-tool zlib [inflate|deflate]";

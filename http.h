@@ -4,7 +4,7 @@
 struct packed_git;
 struct packfile_list;
 
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 
 #include <curl/curl.h>
 #include <curl/easy.h>

@@ -4,7 +4,7 @@
  * Based on Adam Langley's adaptation of Dan Bernstein's public domain code
  * git clone https://github.com/agl/critbit.git
  */
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "cbtree.h"
 
 static inline uint8_t *cb_node_key(struct cb_tree *t, struct cb_node *node)

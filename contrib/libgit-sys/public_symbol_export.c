@@ -4,7 +4,7 @@
  * avoids conflicts with other libraries such as libgit2.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "contrib/libgit-sys/public_symbol_export.h"
 #include "version.h"

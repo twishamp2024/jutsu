@@ -1,7 +1,7 @@
 #define USE_THE_REPOSITORY_VARIABLE
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "commit.h"
 #include "diff.h"

@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "advice.h"
 #include "config.h"
 #include "color.h"

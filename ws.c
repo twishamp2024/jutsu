@@ -6,7 +6,7 @@
 
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "attr.h"
 #include "strbuf.h"
 #include "ws.h"

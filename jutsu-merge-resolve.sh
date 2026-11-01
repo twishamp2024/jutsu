@@ -5,7 +5,7 @@
 #
 # Resolve two trees, using enhanced multi-base read-tree.
 
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 
 # Abort if index does not match HEAD
 if ! git diff-index --quiet --cached HEAD --

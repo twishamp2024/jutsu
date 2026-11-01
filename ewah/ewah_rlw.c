@@ -19,7 +19,7 @@
 
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "ewok.h"
 #include "ewok_rlw.h"
 

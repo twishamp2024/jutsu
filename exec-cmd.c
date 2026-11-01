@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "environment.h"
 #include "exec-cmd.h"

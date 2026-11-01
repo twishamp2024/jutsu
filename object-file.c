@@ -9,7 +9,7 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 #include "convert.h"
 #include "dir.h"

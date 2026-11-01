@@ -5,7 +5,7 @@
  */
 
 #include "test-tool.h"
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "parse.h"
 
 int cmd__genrandom(int argc, const char **argv)

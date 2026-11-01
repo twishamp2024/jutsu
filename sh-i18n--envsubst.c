@@ -13,7 +13,7 @@
  * both files are reproduced immediately below.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "trace2.h"
 
 /* Substitution of environment variables in shell format strings.

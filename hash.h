@@ -13,7 +13,7 @@
 #  endif
 #elif defined(SHA1_DC)
 #define SHA1_BACKEND "SHA1_DC"
-#include "sha1dc_git.h"
+#include "sha1dc_jutsu.h"
 #else /* SHA1_BLK */
 #define SHA1_BACKEND "SHA1_BLK (No collision detection)"
 #include "block-sha1/sha1.h"

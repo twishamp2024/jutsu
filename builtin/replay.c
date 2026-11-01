@@ -2,7 +2,7 @@
  * "git replay" builtin command
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 
 #include "builtin.h"
 #include "config.h"

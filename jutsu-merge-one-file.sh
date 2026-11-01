@@ -23,7 +23,7 @@ LONG_USAGE="usage: git merge-one-file $USAGE
 Blob ids and modes should be empty for missing files."
 
 SUBDIRECTORY_OK=Yes
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 cd_to_toplevel
 require_work_tree
 

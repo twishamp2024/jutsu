@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "blob.h"
 #include "chdir-notify.h"

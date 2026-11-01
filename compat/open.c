@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 
 #ifdef OPEN_RETURNS_EINTR
 #undef open

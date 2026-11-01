@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "trace2.h"
 
 static void check_bug_if_BUG(void)

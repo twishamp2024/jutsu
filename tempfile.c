@@ -42,7 +42,7 @@
  * file created by its parent.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "path.h"
 #include "tempfile.h"

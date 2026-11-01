@@ -6,7 +6,7 @@
 # Copyright (c) 2009, 2010 David Aguilar
 
 TOOL_MODE=diff
-. git-mergetool--lib
+. jutsu-mergetool--lib 2>/dev/null || . git-mergetool--lib
 
 # difftool.prompt controls the default prompt/no-prompt behavior
 # and is overridden with $GIT_DIFFTOOL*_PROMPT.

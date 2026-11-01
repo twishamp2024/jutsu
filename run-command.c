@@ -1,6 +1,6 @@
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "run-command.h"
 #include "environment.h"
 #include "exec-cmd.h"

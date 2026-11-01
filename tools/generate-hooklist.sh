@@ -19,10 +19,13 @@ cat <<EOF
 static const char *hook_name_list[] = {
 EOF
 
+HOOKS_DOC="$SOURCE_DIR/Documentation/jutsuhooks.adoc"
+test -f "$HOOKS_DOC" || HOOKS_DOC="$SOURCE_DIR/Documentation/githooks.adoc"
+
 sed -n \
 	-e '/^~~~~*$/ {x; s/^.*$/	"&",/; p;}' \
 	-e 'x' \
-	<"$SOURCE_DIR"/Documentation/githooks.adoc |
+	<"$HOOKS_DOC" |
 	LC_ALL=C sort
 
 cat <<EOF

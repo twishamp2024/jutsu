@@ -1,9 +1,9 @@
 #define USE_THE_REPOSITORY_VARIABLE
 
 #include "test-tool.h"
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "delta.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "hash.h"
 #include "hex.h"
 #include "pack.h"

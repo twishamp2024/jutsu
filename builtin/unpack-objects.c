@@ -5,7 +5,7 @@
 #include "config.h"
 #include "environment.h"
 #include "gettext.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "hex.h"
 #include "object-file.h"
 #include "odb.h"

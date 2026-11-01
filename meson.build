@@ -382,7 +382,7 @@ libgit_sources = [
   'fsmonitor-ipc.c',
   'fsmonitor-settings.c',
   'gettext.c',
-  'git-zlib.c',
+  'jutsu-zlib.c',
   'gpg-interface.c',
   'graph.c',
   'grep.c',
@@ -1624,11 +1624,11 @@ if sha1_backend == 'sha1dc'
   libgit_c_args += '-DSHA1_DC'
   libgit_c_args += '-DSHA1DC_NO_STANDARD_INCLUDES=1'
   libgit_c_args += '-DSHA1DC_INIT_SAFE_HASH_DEFAULT=0'
-  libgit_c_args += '-DSHA1DC_CUSTOM_INCLUDE_SHA1_C="git-compat-util.h"'
-  libgit_c_args += '-DSHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="git-compat-util.h"'
+  libgit_c_args += '-DSHA1DC_CUSTOM_INCLUDE_SHA1_C="jutsu-compat-util.h"'
+  libgit_c_args += '-DSHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="jutsu-compat-util.h"'
 
   libgit_sources += [
-    'sha1dc_git.c',
+    'sha1dc_jutsu.c',
     'sha1dc/sha1.c',
     'sha1dc/ubc_check.c',
   ]
@@ -1880,7 +1880,7 @@ bin_wrappers = [ ]
 test_dependencies = [ ]
 
 git_builtin = executable('jutsu',
-  sources: builtin_sources + 'git.c',
+  sources: builtin_sources + 'jutsu.c',
   c_pch: 'tools/precompiled.h',
   dependencies: [libgit_commonmain],
   install: true,
@@ -2012,22 +2012,22 @@ foreach symlink : [
 endforeach
 
 scripts_sh = [
-  'git-difftool--helper.sh',
-  'git-filter-branch.sh',
-  'git-merge-octopus.sh',
-  'git-merge-one-file.sh',
-  'git-merge-resolve.sh',
-  'git-mergetool--lib.sh',
-  'git-mergetool.sh',
-  'git-quiltimport.sh',
-  'git-request-pull.sh',
-  'git-sh-i18n.sh',
-  'git-sh-setup.sh',
-  'git-submodule.sh',
-  'git-web--browse.sh',
+  'jutsu-difftool--helper.sh',
+  'jutsu-filter-branch.sh',
+  'jutsu-merge-octopus.sh',
+  'jutsu-merge-one-file.sh',
+  'jutsu-merge-resolve.sh',
+  'jutsu-mergetool--lib.sh',
+  'jutsu-mergetool.sh',
+  'jutsu-quiltimport.sh',
+  'jutsu-request-pull.sh',
+  'jutsu-sh-i18n.sh',
+  'jutsu-sh-setup.sh',
+  'jutsu-submodule.sh',
+  'jutsu-web--browse.sh',
 ]
 if perl_features_enabled
-  scripts_sh += 'git-instaweb.sh'
+  scripts_sh += 'jutsu-instaweb.sh'
 endif
 
 foreach script : scripts_sh
@@ -2048,12 +2048,12 @@ endforeach
 
 if perl_features_enabled
   scripts_perl = [
-    'git-archimport.perl',
-    'git-cvsexportcommit.perl',
-    'git-cvsimport.perl',
-    'git-cvsserver.perl',
-    'git-send-email.perl',
-    'git-svn.perl',
+    'jutsu-archimport.perl',
+    'jutsu-cvsexportcommit.perl',
+    'jutsu-cvsimport.perl',
+    'jutsu-cvsserver.perl',
+    'jutsu-send-email.perl',
+    'jutsu-svn.perl',
   ]
 
   pathsep = ':'
@@ -2104,7 +2104,7 @@ if perl_features_enabled
     )
     test_dependencies += generated_script
 
-    if script == 'git-cvsserver.perl'
+    if script == 'jutsu-cvsserver.perl'
       bin_wrappers += generated_script
 
       if meson.version().version_compare('>=1.3.0')
@@ -2125,7 +2125,7 @@ endif
 
 if target_python.found()
   scripts_python = [
-    'git-p4.py'
+    'jutsu-p4.py'
   ]
 
   foreach script : scripts_python
@@ -2273,7 +2273,7 @@ if headers_to_check.length() != 0 and compiler.get_argument_syntax() == 'gcc'
       command: [
         shell,
         '-c',
-        'echo \'#include "git-compat-util.h"\' > @OUTPUT@ && echo \'#include "' + h + '"\' >> @OUTPUT@'
+        'echo \'#include "jutsu-compat-util.h"\' > @OUTPUT@ && echo \'#include "' + h + '"\' >> @OUTPUT@'
       ]
     )
 

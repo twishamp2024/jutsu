@@ -4,7 +4,7 @@
  * Copyright (C) 2006 Ryan Anderson
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "builtin.h"
 #include "strvec.h"
 

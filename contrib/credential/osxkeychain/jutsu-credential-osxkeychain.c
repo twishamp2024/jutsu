@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <Security/Security.h>
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "strbuf.h"
 #include "wrapper.h"
 

@@ -9,7 +9,7 @@
 **  work differently than '*', and to fix the character-class code.
 */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "wildmatch.h"
 
 typedef unsigned char uchar;

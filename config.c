@@ -6,7 +6,7 @@
  *
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "advice.h"
 #include "date.h"
@@ -17,7 +17,7 @@
 #include "convert.h"
 #include "environment.h"
 #include "gettext.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "repository.h"
 #include "lockfile.h"
 #include "exec-cmd.h"

@@ -2,7 +2,7 @@
  * A wrapper around cbtree which stores oids
  * May be used to replace oid-array for prefix (abbreviation) matches
  */
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "oidtree.h"
 #include "hash.h"
 

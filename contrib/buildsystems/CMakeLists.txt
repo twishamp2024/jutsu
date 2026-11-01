@@ -216,9 +216,9 @@ add_compile_definitions(GIT_HOST_CPU="${CMAKE_SYSTEM_PROCESSOR}")
 add_compile_definitions(SHA256_BLK INTERNAL_QSORT RUNTIME_PREFIX)
 add_compile_definitions(NO_OPENSSL SHA1_DC SHA1DC_NO_STANDARD_INCLUDES
 			SHA1DC_INIT_SAFE_HASH_DEFAULT=0
-			SHA1DC_CUSTOM_INCLUDE_SHA1_C="git-compat-util.h"
-			SHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="git-compat-util.h" )
-list(APPEND compat_SOURCES sha1dc_git.c sha1dc/sha1.c sha1dc/ubc_check.c block-sha1/sha1.c sha256/block/sha256.c compat/qsort_s.c)
+			SHA1DC_CUSTOM_INCLUDE_SHA1_C="jutsu-compat-util.h"
+			SHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="jutsu-compat-util.h" )
+list(APPEND compat_SOURCES sha1dc_jutsu.c sha1dc/sha1.c sha1dc/ubc_check.c block-sha1/sha1.c sha256/block/sha256.c compat/qsort_s.c)
 
 
 add_compile_definitions(PAGER_ENV="LESS=FRX LV=-c"
@@ -763,7 +763,7 @@ endif()
 parse_makefile_for_sources(git_SOURCES ${CMAKE_SOURCE_DIR}/Makefile "BUILTIN_OBJS")
 
 list(TRANSFORM git_SOURCES PREPEND "${CMAKE_SOURCE_DIR}/")
-add_executable(jutsu ${CMAKE_SOURCE_DIR}/git.c ${git_SOURCES})
+add_executable(jutsu ${CMAKE_SOURCE_DIR}/jutsu.c ${git_SOURCES})
 target_link_libraries(jutsu common-main)
 
 add_executable(git-daemon ${CMAKE_SOURCE_DIR}/daemon.c)

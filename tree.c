@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "hex.h"
 #include "tree.h"
 #include "object-name.h"

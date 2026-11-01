@@ -5,7 +5,7 @@
 # Resolve two or more trees.
 #
 
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 
 LF='
 '

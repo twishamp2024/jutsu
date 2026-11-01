@@ -14,8 +14,8 @@ SUBDIRECTORY_OK=Yes
 NONGIT_OK=Yes
 OPTIONS_SPEC=
 TOOL_MODE=merge
-. git-sh-setup
-. git-mergetool--lib
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
+. jutsu-mergetool--lib 2>/dev/null || . git-mergetool--lib
 
 # Returns true if the mode reflects a symlink
 is_symlink () {

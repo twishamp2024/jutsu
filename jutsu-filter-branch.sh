@@ -106,7 +106,7 @@ USAGE="[--setup <command>] [--subdirectory-filter <directory>] [--env-filter <co
 	[--] [<rev-list options>...]"
 
 OPTIONS_SPEC=
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 
 if [ "$(is_bare_repository)" = false ]; then
 	require_clean_work_tree 'rewrite branches'

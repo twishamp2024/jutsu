@@ -10,7 +10,7 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "advice.h"
 #include "attr.h"
@@ -19,7 +19,7 @@
 #include "convert.h"
 #include "environment.h"
 #include "gettext.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "ident.h"
 #include "lockfile.h"
 #include "mailmap.h"

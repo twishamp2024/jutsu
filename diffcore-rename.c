@@ -5,7 +5,7 @@
 
 #define USE_THE_REPOSITORY_VARIABLE
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "diff.h"
 #include "diffcore.h"
 #include "object-file.h"

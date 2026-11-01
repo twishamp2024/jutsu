@@ -24,7 +24,7 @@
 #define USE_THE_REPOSITORY_VARIABLE
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "advice.h"
 #include "config.h"
 #include "credential.h"
@@ -35,7 +35,7 @@
 #include "setup.h"
 #include "strbuf.h"
 #ifdef USE_CURL_FOR_IMAP_SEND
-#include "git-curl-compat.h"
+#include "jutsu-curl-compat.h"
 #include "http.h"
 #endif
 

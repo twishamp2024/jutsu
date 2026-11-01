@@ -8,9 +8,9 @@
  * able to verify hasn't been messed with afterwards.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "csum-file.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "hash.h"
 #include "progress.h"
 

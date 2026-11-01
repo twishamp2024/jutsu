@@ -724,29 +724,29 @@ UNIT_TEST_BIN = $(UNIT_TEST_DIR)/bin
 # interactive shell sessions without exporting it.
 unexport CDPATH
 
-SCRIPT_SH += git-difftool--helper.sh
-SCRIPT_SH += git-filter-branch.sh
-SCRIPT_SH += git-merge-octopus.sh
-SCRIPT_SH += git-merge-one-file.sh
-SCRIPT_SH += git-merge-resolve.sh
-SCRIPT_SH += git-mergetool.sh
-SCRIPT_SH += git-quiltimport.sh
-SCRIPT_SH += git-request-pull.sh
-SCRIPT_SH += git-submodule.sh
-SCRIPT_SH += git-web--browse.sh
+SCRIPT_SH += jutsu-difftool--helper.sh
+SCRIPT_SH += jutsu-filter-branch.sh
+SCRIPT_SH += jutsu-merge-octopus.sh
+SCRIPT_SH += jutsu-merge-one-file.sh
+SCRIPT_SH += jutsu-merge-resolve.sh
+SCRIPT_SH += jutsu-mergetool.sh
+SCRIPT_SH += jutsu-quiltimport.sh
+SCRIPT_SH += jutsu-request-pull.sh
+SCRIPT_SH += jutsu-submodule.sh
+SCRIPT_SH += jutsu-web--browse.sh
 
-SCRIPT_LIB += git-mergetool--lib
-SCRIPT_LIB += git-sh-i18n
-SCRIPT_LIB += git-sh-setup
+SCRIPT_LIB += jutsu-mergetool--lib
+SCRIPT_LIB += jutsu-sh-i18n
+SCRIPT_LIB += jutsu-sh-setup
 
-SCRIPT_PERL += git-archimport.perl
-SCRIPT_PERL += git-cvsexportcommit.perl
-SCRIPT_PERL += git-cvsimport.perl
-SCRIPT_PERL += git-cvsserver.perl
-SCRIPT_PERL += git-send-email.perl
-SCRIPT_PERL += git-svn.perl
+SCRIPT_PERL += jutsu-archimport.perl
+SCRIPT_PERL += jutsu-cvsexportcommit.perl
+SCRIPT_PERL += jutsu-cvsimport.perl
+SCRIPT_PERL += jutsu-cvsserver.perl
+SCRIPT_PERL += jutsu-send-email.perl
+SCRIPT_PERL += jutsu-svn.perl
 
-SCRIPT_PYTHON += git-p4.py
+SCRIPT_PYTHON += jutsu-p4.py
 
 # Generated files for scripts
 SCRIPT_SH_GEN = $(patsubst %.sh,%,$(SCRIPT_SH))
@@ -780,7 +780,7 @@ clean-python-script:
 SCRIPTS = $(SCRIPT_SH_GEN) \
 	  $(SCRIPT_PERL_GEN) \
 	  $(SCRIPT_PYTHON_GEN) \
-	  git-instaweb
+	  jutsu-instaweb
 
 ETAGS_TARGET = TAGS
 
@@ -930,7 +930,7 @@ BINDIR_PROGRAMS_NEED_X += jutsu-shell
 BINDIR_PROGRAMS_NEED_X += jutsu-upload-archive
 BINDIR_PROGRAMS_NEED_X += jutsu-upload-pack
 
-BINDIR_PROGRAMS_NO_X += git-cvsserver
+BINDIR_PROGRAMS_NO_X += jutsu-cvsserver
 
 # Set paths to tools early so that they can be used for version tests.
 ifndef SHELL_PATH
@@ -1180,7 +1180,7 @@ LIB_OBJS += fsmonitor.o
 LIB_OBJS += fsmonitor-ipc.o
 LIB_OBJS += fsmonitor-settings.o
 LIB_OBJS += gettext.o
-LIB_OBJS += git-zlib.o
+LIB_OBJS += jutsu-zlib.o
 LIB_OBJS += gpg-interface.o
 LIB_OBJS += graph.o
 LIB_OBJS += grep.o
@@ -1585,7 +1585,7 @@ RUST_SOURCES += src/varint.rs
 
 GIT-VERSION-FILE: FORCE
 	@OLD=$$(cat $@ 2>/dev/null || :) && \
-	$(call version_gen,"$(shell pwd)",GIT-VERSION-FILE.in,$@) && \
+	$(call version_gen,"$(shell pwd)",JUTSU-VERSION-FILE.in,$@) && \
 	NEW=$$(cat $@ 2>/dev/null || :) && \
 	if test "$$OLD" != "$$NEW"; then echo "$$NEW" >&2; fi
 
@@ -2153,7 +2153,7 @@ ifdef APPLE_COMMON_CRYPTO_SHA1
 	BASIC_CFLAGS += -DSHA1_APPLE
 else
 	BASIC_CFLAGS += -DSHA1_DC
-	LIB_OBJS += sha1dc_git.o
+	LIB_OBJS += sha1dc_jutsu.o
 ifdef DC_SHA1_EXTERNAL
         ifdef DC_SHA1_SUBMODULE
                 ifneq ($(DC_SHA1_SUBMODULE),auto)
@@ -2174,8 +2174,8 @@ endif
 	BASIC_CFLAGS += \
 		-DSHA1DC_NO_STANDARD_INCLUDES \
 		-DSHA1DC_INIT_SAFE_HASH_DEFAULT=0 \
-		-DSHA1DC_CUSTOM_INCLUDE_SHA1_C="\"git-compat-util.h\"" \
-		-DSHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="\"git-compat-util.h\""
+		-DSHA1DC_CUSTOM_INCLUDE_SHA1_C="\"jutsu-compat-util.h\"" \
+		-DSHA1DC_CUSTOM_INCLUDE_UBC_CHECK_C="\"jutsu-compat-util.h\""
 endif
 endif
 endif
@@ -2677,13 +2677,13 @@ strip: $(PROGRAMS) jutsu$X scalar$X
 #   dependencies here will not need to change if the force-build
 #   details change some day.
 
-git.sp git.s git.o: GIT-PREFIX
-git.sp git.s git.o: EXTRA_CPPFLAGS = \
+jutsu.sp jutsu.s jutsu.o: GIT-PREFIX
+jutsu.sp jutsu.s jutsu.o: EXTRA_CPPFLAGS = \
 	'-DGIT_HTML_PATH="$(htmldir_relative_SQ)"' \
 	'-DGIT_MAN_PATH="$(mandir_relative_SQ)"' \
 	'-DGIT_INFO_PATH="$(infodir_relative_SQ)"'
 
-jutsu$X: git.o GIT-LDFLAGS $(BUILTIN_OBJS) $(GITLIBS)
+jutsu$X: jutsu.o GIT-LDFLAGS $(BUILTIN_OBJS) $(GITLIBS)
 	$(QUIET_LINK)$(CC) $(ALL_CFLAGS) -o $@ $(ALL_LDFLAGS) \
 		$(filter %.o,$^) $(LIBS)
 
@@ -2706,7 +2706,7 @@ PAGER_ENV_CQ_SQ = $(subst ','\'',$(PAGER_ENV_CQ))
 pager.sp pager.s pager.o: EXTRA_CPPFLAGS = \
 	-DPAGER_ENV='$(PAGER_ENV_CQ_SQ)'
 
-version-def.h: version-def.h.in GIT-VERSION-GEN GIT-VERSION-FILE GIT-USER-AGENT
+version-def.h: version-def.h.in JUTSU-VERSION-GEN GIT-VERSION-FILE GIT-USER-AGENT
 	$(QUIET_GEN)$(call version_gen,"$(shell pwd)",$<,$@)
 
 version.sp version.s version.o: version-def.h
@@ -2725,12 +2725,12 @@ config-list.h: tools/generate-configlist.sh
 
 command-list.h: tools/generate-cmdlist.sh command-list.txt
 
-command-list.h: $(wildcard Documentation/git*.adoc)
+command-list.h: $(wildcard Documentation/jutsu*.adoc Documentation/git*.adoc)
 	$(QUIET_GEN)$(SHELL_PATH) ./tools/generate-cmdlist.sh \
 		$(patsubst %,--exclude-program %,$(EXCLUDED_PROGRAMS)) \
 		. $@
 
-hook-list.h: tools/generate-hooklist.sh Documentation/githooks.adoc
+hook-list.h: tools/generate-hooklist.sh Documentation/jutsuhooks.adoc
 	$(QUIET_GEN)$(SHELL_PATH) ./tools/generate-hooklist.sh . $@
 
 SCRIPT_DEFINES = $(SHELL_PATH_SQ):$(DIFF_SQ):\
@@ -2748,10 +2748,10 @@ $(SCRIPT_SH_GEN) $(SCRIPT_LIB) : % : %.sh tools/generate-script.sh GIT-BUILD-OPT
 	$(QUIET_GEN)./tools/generate-script.sh "$<" "$@+" ./GIT-BUILD-OPTIONS && \
 	mv $@+ $@
 
-git.rc: git.rc.in GIT-VERSION-GEN GIT-VERSION-FILE
+jutsu.rc: jutsu.rc.in JUTSU-VERSION-GEN GIT-VERSION-FILE
 	$(QUIET_GEN)$(call version_gen,"$(shell pwd)",$<,$@)
 
-git.res: git.rc GIT-PREFIX
+jutsu.res: jutsu.rc GIT-PREFIX
 	$(QUIET_RC)$(RC) -i $< -o $@
 
 # This makes sure we depend on the NO_PERL setting itself.
@@ -2879,7 +2879,7 @@ test-objs: $(TEST_OBJS)
 GIT_OBJS += $(LIB_OBJS)
 GIT_OBJS += $(BUILTIN_OBJS)
 GIT_OBJS += common-main.o
-GIT_OBJS += git.o
+GIT_OBJS += jutsu.o
 .PHONY: git-objs
 git-objs: $(GIT_OBJS)
 
@@ -3399,7 +3399,7 @@ GIT-BUILD-OPTIONS: FORCE
 		-e "s|@USE_LIBPCRE2@|\'$(USE_LIBPCRE2)\'|" \
 		-e "s|@WITH_BREAKING_CHANGES@|\'$(WITH_BREAKING_CHANGES)\'|" \
 		-e "s|@X@|\'$(X)\'|" \
-		GIT-BUILD-OPTIONS.in >$@+
+		JUTSU-BUILD-OPTIONS.in >$@+
 	@if grep -q '^[A-Z][A-Z_]*=@.*@$$' $@+; then echo "Unsubstituted build options in $@" >&2 && exit 1; fi
 	@if cmp $@+ $@ >/dev/null 2>&1; then $(RM) $@+; else mv $@+ $@; fi
 	@if test -f GIT-BUILD-DIR; then rm GIT-BUILD-DIR; fi
@@ -3490,7 +3490,7 @@ HCO = $(patsubst %.h,%.hco,$(CHK_HDRS))
 HCC = $(HCO:hco=hcc)
 
 %.hcc: %.h
-	@echo '#include "git-compat-util.h"' >$@
+	@echo '#include "jutsu-compat-util.h"' >$@
 	@echo '#include "$<"' >>$@
 
 $(HCO): %.hco: %.hcc $(GENERATED_H) FORCE

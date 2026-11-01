@@ -1,4 +1,4 @@
-#include "../git-compat-util.h"
+#include "../jutsu-compat-util.h"
 
 char *gitstrdup(const char *s1)
 {

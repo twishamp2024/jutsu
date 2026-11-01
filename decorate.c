@@ -3,7 +3,7 @@
  * data.
  */
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "object.h"
 #include "decorate.h"
 

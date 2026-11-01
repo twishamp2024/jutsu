@@ -1,13 +1,13 @@
 #define USE_THE_REPOSITORY_VARIABLE
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "abspath.h"
 #include "config.h"
 #include "convert.h"
 #include "environment.h"
 #include "gettext.h"
-#include "git-zlib.h"
+#include "jutsu-zlib.h"
 #include "hex.h"
 #include "object-name.h"
 #include "path.h"

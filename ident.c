@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2005 Linus Torvalds
  */
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "ident.h"
 #include "config.h"
 #include "date.h"

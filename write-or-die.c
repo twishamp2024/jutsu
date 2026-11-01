@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "parse.h"
 #include "run-command.h"
 #include "write-or-die.h"

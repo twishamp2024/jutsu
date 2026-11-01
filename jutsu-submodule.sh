@@ -19,7 +19,7 @@ USAGE="[--quiet] [--cached]
    or: $dashless [--quiet] absorbgitdirs [--] [<path>...]"
 OPTIONS_SPEC=
 SUBDIRECTORY_OK=Yes
-. git-sh-setup
+. jutsu-sh-setup 2>/dev/null || . git-sh-setup
 require_work_tree
 wt_prefix=$(git rev-parse --show-prefix)
 cd_to_toplevel

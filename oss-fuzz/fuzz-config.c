@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "config.h"
 
 int LLVMFuzzerTestOneInput(const uint8_t *, size_t);

@@ -34,7 +34,7 @@
 
 #define DISABLE_SIGN_COMPARE_WARNINGS
 
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 
 #include "kwset.h"
 #include "compat/obstack.h"

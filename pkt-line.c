@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "copy.h"
 #include "pkt-line.h"
 #include "gettext.h"

@@ -1,4 +1,4 @@
-#include "git-compat-util.h"
+#include "jutsu-compat-util.h"
 #include "line-range.h"
 #include "xdiff-interface.h"
 #include "userdiff.h"
